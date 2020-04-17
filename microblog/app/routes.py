@@ -27,7 +27,7 @@ def login():
     # flashed messages will not magically appear in web pages: these are added
     # to the base.html
     if form.validate_on_submit():
-        flash(f"Login requested for {form.username.data}, "
-              f"remember_me={form.remember_me.data}")
-        return redirect(url_for("index"))
-    return render_template("login.html", title = "Sign In", form=form)
+        flash('Login requested for user {}, remember_me={}'.format(
+            form.username.data, form.remember_me.data))
+        return redirect(url_for('index'))
+    return render_template('login.html', title='Sign In', form=form)
