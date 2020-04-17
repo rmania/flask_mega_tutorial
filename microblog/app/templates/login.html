@@ -1,0 +1,25 @@
+<!DOCTYPE html>
+<!--establishes inheritance link between index and base.html template-->
+{% extends "base.html" %}
+
+{% block content %}
+    <h1>Sign In</h1>
+    <!--<form> used as a container for the web form.-->
+    <!--method attribute specifying HTTP request method when submitting
+    form to the server.-->
+    <form action="" method="post" novalidate>
+        <!--generates hidden field including a token that is
+        used to protect the form against CSRF attacks-->
+        {{ form.hidden_tag() }}
+        <p>
+            {{ form.username.label }}<br>
+            {{ form.username(size=32) }}
+        </p>
+        <p>
+            {{ form.password.label }}<br>
+            {{ form.password(size=32) }}
+        </p>
+        <p>{{ form.remember_me() }} {{ form.remember_me.label }}</p>
+        <p>{{ form.submit() }}</p>
+    </form>
+{% endblock %}
