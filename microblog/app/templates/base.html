@@ -10,8 +10,9 @@
     <body>
         <div>
             Microblog:
-            <a href="/index">Home</a>
-            <a href="/login">Login</a>
+            <!--url_for() every time we generate an application URL!!-->
+            <a href="{{ url_for("index") }}">Home</a>
+            <a href="{{ url_for("login") }}">Login</a>
         </div>
         <hr>
         <!--returns a list of all the messages
