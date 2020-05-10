@@ -16,6 +16,8 @@
             {% if current_user.is_anonymous %}
             <a href="{{ url_for('login') }}">Login</a>
             {% else %}
+            <!-- use Flask-Login's current_user to generate the correct URL-->
+            <a href="{{ url_for('user', username=current_user.username) }}">Profile</a>
             <a href="{{ url_for('logout') }}">Logout</a>
             {% endif %}
         </div>
