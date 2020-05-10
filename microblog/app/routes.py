@@ -7,18 +7,31 @@ from app.models import User
 from datetime import datetime
 
 
-@app.route("/")
-@app.route("/index")
+@app.before_request
+def before_request():
+    """
+    The Flask @before_request decorator registers the decorated function
+    to be executed before the view function. This is extremely useful
+    because now one can insert code to be executed before any
+    view function in the application, and store it in a single place
+    """
+    if current_user.is_authenticated:
+        current_user.last_seen = datetime.utcnow()
+        db.session.commit()
+
+
+@app.route('/')
+@app.route('/index')
 @login_required
 def index():
     posts = [
         {
-            'author': {'username': 'Arne'},
-            'body' : 'Avengers Movie rocked it!'
+            'author': {'username': 'John'},
+            'body': 'Beautiful day in Portland!'
         },
         {
-            'author': {'username': 'Suzan'},
-            'body': 'Waiting for Tenet!'
+            'author': {'username': 'Susan'},
+            'body': 'The Avengers movie was so cool!'
         }
     ]
     return render_template('index.html', title='Home', posts=posts)
@@ -30,13 +43,12 @@ def login():
         return redirect(url_for('index'))
     form = LoginForm()
     if form.validate_on_submit():
-        # filter_by -> only includes the objects that have a matching username.
         user = User.query.filter_by(username=form.username.data).first()
         if user is None or not user.check_password(form.password.data):
             flash('Invalid username or password')
             return redirect(url_for('login'))
         login_user(user, remember=form.remember_me.data)
-        next_page = request.args.get('next')  # next query string argument
+        next_page = request.args.get('next')
         if not next_page or url_parse(next_page).netloc != '':
             next_page = url_for('index')
         return redirect(next_page)
@@ -64,8 +76,8 @@ def register():
     return render_template('register.html', title='Register', form=form)
 
 
-@app.route('/user/<username>')  # dynamic component
-@login_required  # accessible to logged in users only
+@app.route('/user/<username>')
+@login_required
 def user(username):
     user = User.query.filter_by(username=username).first_or_404()
     posts = [
@@ -73,19 +85,6 @@ def user(username):
         {'author': user, 'body': 'Test post #2'}
     ]
     return render_template('user.html', user=user, posts=posts)
-
-
-@app.before_requests
-def before_requests():
-    """
-    The Flask @before_request decorator registers the decorated function
-    to be executed before the view function. This is extremely useful
-    because now one can insert code to be executed before any
-    view function in the application, and store it in a single place
-    """
-    if current_user.is_authenticated:
-        current_user.last_seen = datetime.utcnow()
-        db.session.commit()
 
 
 @app.route('/edit_profile', methods=['GET', 'POST'])
