@@ -38,6 +38,14 @@ nosetests.xml
 .project
 .pydevproject
 
-venv
+# Environments
+.env
+.venv
+env/
+venv/
+ENV/
+env.bak/
+venv.bak/
+
 app.db
 microblog.log*
