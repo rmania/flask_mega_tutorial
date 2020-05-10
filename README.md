@@ -20,3 +20,5 @@ high-level operations into database commands.
 **https://ondras.zarovi.cz/sql/demo/** a SQL designer tool to make diagrams. 
 **Migratation Repository** using ##Alembic** a lightweight database migration tool for usage with the SQLAlchemy 
 Database Toolkit for Python (https://alembic.sqlalchemy.org/en/latest/)
+
+
