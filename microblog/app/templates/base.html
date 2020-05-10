@@ -11,8 +11,13 @@
         <div>
             Microblog:
             <!--url_for() every time we generate an application URL!!-->
-            <a href="{{ url_for("index") }}">Home</a>
-            <a href="{{ url_for("login") }}">Login</a>
+            <a href="{{ url_for('index') }}">Home</a>
+            <!-- is_anonymous attribute added by Flask-Login to to user objects through UserMixin class-->
+            {% if current_user.is_anonymous %}
+            <a href="{{ url_for('login') }}">Login</a>
+            {% else %}
+            <a href="{{ url_for('logout') }}">Logout</a>
+            {% endif %}
         </div>
         <hr>
         <!--returns a list of all the messages
