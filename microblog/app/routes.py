@@ -7,7 +7,7 @@ from app.forms import (LoginForm, RegistrationForm,
                        ResetPasswordRequestForm)
 from app.models import User, Post
 from datetime import datetime
-from app.email import send_password_reset_ema
+from app.email import send_password_reset_email
 
 
 @app.before_request
