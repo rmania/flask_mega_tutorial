@@ -4,12 +4,13 @@ from flask_login import login_user, logout_user, current_user, login_required
 from werkzeug.urls import url_parse
 from flask_babel import _, get_locale
 from guess_language import guess_language
-from flask import g
+from flask import g, jsonify
 from app import app, db
 from app.forms import LoginForm, RegistrationForm, EditProfileForm, \
     EmptyForm, PostForm, ResetPasswordRequestForm, ResetPasswordForm
 from app.models import User, Post
 from app.email import send_password_reset_email
+from app.translate import translate
 
 
 @app.before_request
@@ -210,3 +211,13 @@ def unfollow(username):
         return redirect(url_for('user', username=username))
     else:
         return redirect(url_for('index'))
+
+
+@app.route('/translate', methods=['POST'])
+@login_required
+def translate_text():
+    # request.form attribute is dictionary that Flask exposes with all the data
+    # that has included in the submission
+    return jsonify({'text': translate(request.form['text'],
+                                      request.form['source_language'],
+                                      request.form['dest_language'])})
