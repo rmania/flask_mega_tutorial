@@ -2,6 +2,9 @@ import os
 import click
 from app import app
 
+# Flask relies on Click for CLI operations. Commands like translate,
+# which are a root for several sub-commands are created via
+# the app.cli.group() decorator.
 
 @app.cli.group()
 def translate():

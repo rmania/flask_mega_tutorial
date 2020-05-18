@@ -53,5 +53,6 @@
     <!-- add moment.js library, without losing base contents with 'super'-->
     {{ super() }}
     {{ moment.include_moment() }}
+    {{ moment.lang(g.locale) }}
 {% endblock %}
 
