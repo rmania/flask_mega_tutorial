@@ -21,4 +21,15 @@ high-level operations into database commands.
 **Migratation Repository** using ##Alembic** a lightweight database migration tool for usage with the SQLAlchemy 
 Database Toolkit for Python (https://alembic.sqlalchemy.org/en/latest/)
 
+Ch13 Key concepts:
+Internationalization and Localization, commonly abbreviated I18n and L10n. 
+**Flask-Babel** is an extension to Flask that adds i18n and l10n support to any Flask application with the
+ help of babel, pytz and speaklater. https://pythonhosted.org/Flask-Babel/
+Adding `_()` and `_l()` wrapper objects in the html code to render translations pybabel command to 
+extract them to a .pot file (portable object template). this generates a Language Catalog.
+Create `flask translate init <language-code>` , `flask translate update` and `flask translate compile` 
+sub-commands with a new `cli.py` file (relying on click module)
+ 
+ 
+
 
